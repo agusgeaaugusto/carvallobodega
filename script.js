@@ -34,7 +34,7 @@ searchInput?.addEventListener('input',()=>{
 });
 
 function activateTilt(root=document){
-  if(!matchMedia('(pointer:fine)').matches)return;
+  if(!root||!matchMedia('(pointer:fine)').matches)return;
   root.querySelectorAll?.('.tilt-card:not([data-tilt-ready])').forEach(card=>{
     card.dataset.tiltReady='1';
     const strength=Number(card.dataset.tilt||7);
@@ -72,107 +72,146 @@ function paintGallery(){
   });
   [...(dots?.children||[])].forEach((d,i)=>d.classList.toggle('active',i===galleryCurrent));
 }
-function restartGallery(){clearInterval(galleryTimer);galleryTimer=setInterval(()=>goGallery(galleryCurrent+1),5000);}
+function restartGallery(){
+  clearInterval(galleryTimer);
+  if(galleryCards().length>1)galleryTimer=setInterval(()=>goGallery(galleryCurrent+1),5000);
+}
 function goGallery(i){const cards=galleryCards();if(!cards.length)return;galleryCurrent=(i+cards.length)%cards.length;paintGallery();restartGallery();}
 document.getElementById('galleryPrev')?.addEventListener('click',()=>goGallery(galleryCurrent-1));
 document.getElementById('galleryNext')?.addEventListener('click',()=>goGallery(galleryCurrent+1));
 rebuildGalleryDots();paintGallery();restartGallery();
 
-// ---------- Imágenes externas: refresco sin caché visible ----------
-function withFreshToken(url){
-  if(!url)return url;
-  const clean=url.replace(/([?&])cb=\d+/,'$1').replace(/[?&]$/,'');
-  return clean + (clean.includes('?')?'&':'?') + 'cb=' + Date.now();
-}
-function refreshExistingDriveImages(){
-  document.querySelectorAll('img[data-drive-refresh], img[src*="drive.google.com/thumbnail"]').forEach(img=>{
-    const base=img.dataset.baseSrc || img.src.replace(/([?&])cb=\d+/,'$1').replace(/[?&]$/,'');
-    img.dataset.baseSrc=base;
-    img.src=withFreshToken(base);
+// ---------- Google Drive: una sola fuente, sin duplicados ----------
+const productCategoryTemplates=[...document.querySelectorAll('#productGrid .category-panel')]
+  .map(panel=>panel.cloneNode(true));
+
+function uniqueDriveItems(items){
+  const seen=new Set();
+  return (Array.isArray(items)?items:[]).filter(item=>{
+    const key=String(item?.id||item?.url||'').trim();
+    if(!key||seen.has(key))return false;
+    seen.add(key);
+    return true;
   });
-  const hero=document.getElementById('heroMedia');
-  if(hero){
-    const base=hero.dataset.baseBg || 'https://drive.google.com/thumbnail?id=1AlHNfybZt28-UJ2tW4IYjRYN8lfsdYec&sz=w2200';
-    hero.dataset.baseBg=base;
-    hero.style.backgroundImage=`url("${withFreshToken(base)}")`;
-  }
 }
 
-function mediaCard(url,cls,alt){
+function withVersionToken(url,version){
+  if(!url)return '';
+  const clean=url
+    .replace(/([?&])(cb|v)=[^&]*/g,'$1')
+    .replace(/\?&/g,'?')
+    .replace(/&&+/g,'&')
+    .replace(/[?&]$/,'');
+  const token=encodeURIComponent(String(version||'actual'));
+  return clean+(clean.includes('?')?'&':'?')+'v='+token;
+}
+
+function driveThumb(item,size=1800){
+  let url=item?.url||'';
+  if(url)url=/[?&]sz=w\d+/.test(url)
+    ?url.replace(/sz=w\d+/,'sz=w'+size)
+    :url+(url.includes('?')?'&':'?')+'sz=w'+size;
+  else if(item?.id)url=`https://drive.google.com/thumbnail?id=${item.id}&sz=w${size}`;
+  return withVersionToken(url,item?.modified||item?.id);
+}
+
+function mediaCard(item,cls,alt,size){
   const article=document.createElement('article');
   article.className=cls;
+  article.dataset.driveId=String(item?.id||'');
   if(cls.includes('tilt-card'))article.dataset.tilt='7';
+
   const img=document.createElement('img');
-  img.alt=alt||'Carvallo Bodega'; img.loading='eager'; img.decoding='async'; img.dataset.driveRefresh='1'; img.dataset.baseSrc=url; img.src=withFreshToken(url);
+  img.alt=item?.name?`${alt}: ${item.name}`:alt;
+  img.loading='lazy';
+  img.decoding='async';
+  img.src=driveThumb(item,size);
+  img.addEventListener('load',()=>article.classList.add('media-loaded'),{once:true});
+  img.addEventListener('error',()=>article.classList.add('media-error'),{once:true});
   article.appendChild(img);
   return article;
 }
-function driveThumb(item,size=1800){
-  if(item?.url)return item.url.replace(/sz=w\d+/,'sz=w'+size);
-  return item?.id?`https://drive.google.com/thumbnail?id=${item.id}&sz=w${size}`:'';
+
+function replaceMediaChildren(container,nodes){
+  if(!container)return;
+  const fragment=document.createDocumentFragment();
+  nodes.forEach(node=>fragment.appendChild(node));
+  container.replaceChildren(fragment);
+  container.setAttribute('aria-busy','false');
 }
 
 function renderMedia(data){
-  // Banner: usa la imagen más reciente
-  const heroItem=data.hero?.[0];
-  if(heroItem){
-    const hero=document.getElementById('heroMedia');
-    const url=driveThumb(heroItem,2200);
-    hero.dataset.baseBg=url; hero.style.backgroundImage=`url("${withFreshToken(url)}")`;
+  const heroItems=uniqueDriveItems(data.hero);
+  const productItems=uniqueDriveItems(data.products);
+  const promotionItems=uniqueDriveItems(data.promotions);
+  const galleryItems=uniqueDriveItems(data.gallery);
+
+  const hero=document.getElementById('heroMedia');
+  const heroItem=heroItems[0];
+  if(hero&&heroItem){
+    hero.style.backgroundImage=`url("${driveThumb(heroItem,2200)}")`;
+    hero.dataset.driveId=String(heroItem.id||'');
+    hero.classList.add('media-ready');
   }
 
-  // Promociones: muestra todos los pósters, sin recortar
-  if(Array.isArray(data.promotions) && data.promotions.length){
-    const grid=document.getElementById('promoMediaGrid');
-    grid.innerHTML='';
-    data.promotions.slice(0,12).forEach(item=>grid.appendChild(mediaCard(driveThumb(item,1800),'promo-image-card tilt-card','Promoción Carvallo Bodega')));
-    activateTilt(grid);
-  }
+  const promoGrid=document.getElementById('promoMediaGrid');
+  replaceMediaChildren(
+    promoGrid,
+    promotionItems.map(item=>mediaCard(item,'promo-image-card tilt-card','Promoción Carvallo Bodega',1800))
+  );
+  activateTilt(promoGrid);
 
-  // Productos: conserva los paneles de categorías y reemplaza solo las imágenes
-  if(Array.isArray(data.products) && data.products.length){
-    const grid=document.getElementById('productGrid');
-    const categories=[...grid.querySelectorAll('.category-panel')].map(x=>x.cloneNode(true));
-    grid.innerHTML='';
-    data.products.slice(0,10).forEach(item=>grid.appendChild(mediaCard(driveThumb(item,1600),'product-media tilt-card reveal','Producto Carvallo Bodega')));
-    categories.forEach(x=>grid.appendChild(x));
-    activateTilt(grid); observeReveals();
-  }
+  const productGrid=document.getElementById('productGrid');
+  const productCards=productItems.map(item=>mediaCard(item,'product-media tilt-card reveal','Producto Carvallo Bodega',1600));
+  productCategoryTemplates.forEach(panel=>productCards.push(panel.cloneNode(true)));
+  replaceMediaChildren(productGrid,productCards);
+  activateTilt(productGrid);
+  observeReveals();
 
-  // Galería: agrega automáticamente todas las imágenes nuevas
-  if(Array.isArray(data.gallery) && data.gallery.length){
-    const track=document.getElementById('galleryTrack');
-    track.innerHTML='';
-    data.gallery.slice(0,20).forEach((item,i)=>{
-      const card=mediaCard(driveThumb(item,1800),'gallery-card'+(i===0?' active':''),'Galería Carvallo Bodega');
-      track.appendChild(card);
-    });
-    galleryCurrent=0; rebuildGalleryDots(); paintGallery(); restartGallery();
-  }
+  const galleryTrack=document.getElementById('galleryTrack');
+  replaceMediaChildren(
+    galleryTrack,
+    galleryItems.map((item,index)=>mediaCard(item,'gallery-card'+(index===0?' active':''),'Galería Carvallo Bodega',1800))
+  );
+  galleryCurrent=0;
+  rebuildGalleryDots();
+  paintGallery();
+  restartGallery();
+}
+
+function payloadSignature(data){
+  const sections=['hero','products','promotions','gallery'];
+  return JSON.stringify(sections.map(section=>[
+    section,
+    uniqueDriveItems(data[section]).map(item=>[item.id,item.modified])
+  ]));
 }
 
 let lastPayloadSignature='';
+let mediaSyncInFlight=false;
 async function syncMedia(){
-  const endpoint=window.CARVALLO_MEDIA_API;
-  if(!endpoint){refreshExistingDriveImages();return;}
+  const endpoint=String(window.CARVALLO_MEDIA_API||'').trim();
+  if(!endpoint||mediaSyncInFlight)return;
+  mediaSyncInFlight=true;
   try{
-    const url=endpoint + (endpoint.includes('?')?'&':'?') + '_=' + Date.now();
+    const url=endpoint+(endpoint.includes('?')?'&':'?')+'_='+Date.now();
     const res=await fetch(url,{cache:'no-store'});
     if(!res.ok)throw new Error('HTTP '+res.status);
     const data=await res.json();
-    const signature=JSON.stringify({
-      hero:data.hero?.map(x=>[x.id,x.modified]),
-      products:data.products?.map(x=>[x.id,x.modified]),
-      promotions:data.promotions?.map(x=>[x.id,x.modified]),
-      gallery:data.gallery?.map(x=>[x.id,x.modified])
-    });
-    if(signature!==lastPayloadSignature){lastPayloadSignature=signature;renderMedia(data);}
+    if(!data||data.success===false)throw new Error(data?.error||'Respuesta inválida');
+    const signature=payloadSignature(data);
+    if(signature!==lastPayloadSignature){
+      lastPayloadSignature=signature;
+      renderMedia(data);
+    }
   }catch(err){
     console.warn('Actualización de imágenes:',err.message);
-    refreshExistingDriveImages();
+  }finally{
+    mediaSyncInFlight=false;
   }
 }
 
+if(window.__CARVALLO_MEDIA_SYNC_TIMER__)clearInterval(window.__CARVALLO_MEDIA_SYNC_TIMER__);
 syncMedia();
-setInterval(syncMedia, Number(window.CARVALLO_MEDIA_REFRESH_MS)||30000);
+window.__CARVALLO_MEDIA_SYNC_TIMER__=setInterval(syncMedia,Number(window.CARVALLO_MEDIA_REFRESH_MS)||30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncMedia();});

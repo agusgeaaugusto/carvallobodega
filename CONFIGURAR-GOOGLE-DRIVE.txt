@@ -1,7 +1,8 @@
 CARVALLO BODEGA - INTEGRACION GOOGLE DRIVE
 
-La pagina ya contiene como respaldo las imagenes actuales de tu nueva carpeta PaginaWeb.
-Tambien quedaron corregidos los IDs de las 5 carpetas en google-apps-script.gs.
+La pagina obtiene las imagenes desde una sola fuente: el Web App de Apps Script.
+No contiene copias antiguas de Drive en el HTML, evitando cargas dobles.
+Los IDs de las 5 carpetas estan corregidos en google-apps-script.gs.
 
 CARPETAS INTEGRADAS
 01 - Banner e Inicio: 1zJZHuwFVwl7MJFzFOV7qbDhpYsoRHLEK
@@ -26,3 +27,4 @@ PARA QUE LAS IMAGENES NUEVAS APAREZCAN AUTOMATICAMENTE
 
 Luego, al subir imagenes a Productos, Promociones o Galeria, la pagina las detectara automaticamente.
 El banner usara la imagen mas reciente de la carpeta 01 - Banner e Inicio.
+Las imagenes repetidas con el mismo ID se muestran una sola vez.

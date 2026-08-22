@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260822-drive-unico" />
 </head>
 <body>
   <header class="topbar" id="inicio">
@@ -36,7 +36,7 @@
 
   <main>
     <section class="hero" id="hero">
-      <div class="hero-media" id="heroMedia" aria-hidden="true"></div>
+      <div class="hero-media" id="heroMedia" style="background-image:none" aria-hidden="true"></div>
       <div class="hero-glow glow-a"></div><div class="hero-glow glow-b"></div>
       <div class="hero-shade"></div>
       <div class="hero-content reveal">
@@ -66,12 +66,7 @@
         <span>PROMOCIONES</span><h2>Promo del día</h2><p>Ofertas destacadas para disfrutar bien frío.</p>
       </div>
       <div class="promo-layout reveal">
-        <div class="promo-media-grid" id="promoMediaGrid">
-          <article class="promo-image-card tilt-card" data-tilt="8">
-            <img data-drive-refresh src="https://drive.google.com/thumbnail?id=1qaZXjMndvjfNkK2JBAw2SWOKV35YOmG0&sz=w1800" alt="Promoción de Carvallo Bodega" />
-            <div class="media-shine"></div>
-          </article>
-        </div>
+        <div class="promo-media-grid" id="promoMediaGrid" aria-live="polite" aria-busy="true"></div>
         <aside class="order-card">
           <div class="wa-orbit"><i class="fa-brands fa-whatsapp"></i></div>
           <h3>Hacé tu pedido<br>directamente por <span>WhatsApp</span></h3>
@@ -86,8 +81,6 @@
         <span>PRODUCTOS</span><h2>Todo para tu momento</h2><p>Explorá nuestras opciones destacadas.</p>
       </div>
       <div class="product-grid" id="productGrid">
-        <article class="product-media tilt-card reveal" data-tilt="7"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1GQfU0U753Ol5YoZtINho9mN9Rmi3vqHe&sz=w1400" alt="Productos Carvallo Bodega" /></article>
-        <article class="product-media tilt-card reveal" data-tilt="7"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1jC0brH9C8hcyBNvvRbZcvt-l7DpH50Wj&sz=w1400" alt="Productos de Carvallo Bodega" /></article>
         <article class="category-panel reveal"><div class="cat-icon"><i class="fa-solid fa-beer-mug-empty"></i></div><h3>Cervezas</h3><p>Clásicas, premium y especiales.</p></article>
         <article class="category-panel reveal"><div class="cat-icon"><i class="fa-solid fa-wine-bottle"></i></div><h3>Licores</h3><p>Opciones para brindar y compartir.</p></article>
       </div>
@@ -97,11 +90,7 @@
       <div class="gallery-head reveal"><div><span>NUESTRA BODEGA</span><h2>Viví la experiencia Carvallo</h2><p>Un vistazo a nuestro ambiente, variedad y estilo.</p></div></div>
       <div class="gallery-stage reveal" id="galleryStage">
         <button class="gallery-arrow left" id="galleryPrev" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
-        <div class="gallery-track" id="galleryTrack">
-          <article class="gallery-card active"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1rvPi6VSPvcTlq4aeoUWH1aXDKBT46G8q&sz=w1600" alt="Galería Carvallo Bodega" /></article>
-          <article class="gallery-card"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1hdhX2smtZR_W9b37Ke2-jwqrc3T5yruJ&sz=w1600" alt="Galería de productos Carvallo Bodega" /></article>
-          <article class="gallery-card"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1lAL9L-hO6RZ_BY3wD23OgezsazBkEShe&sz=w1600" alt="Galería Carvallo Bodega" /></article>
-        </div>
+        <div class="gallery-track" id="galleryTrack" aria-live="polite" aria-busy="true"></div>
         <button class="gallery-arrow right" id="galleryNext" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
       <div class="gallery-dots" id="galleryDots"></div>
@@ -135,7 +124,7 @@
   <a class="floating-whatsapp" href="https://wa.me/595981742163" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp"><i class="fa-brands fa-whatsapp"></i><span>¡Chateá con nosotros!</span></a>
 
   <div class="search-modal" id="searchModal" aria-hidden="true"><div class="search-box"><button id="closeSearch" aria-label="Cerrar">×</button><h3>Buscar en Carvallo Bodega</h3><input id="searchInput" type="search" placeholder="Ej.: cerveza, promociones, ubicación..." /><p id="searchResult">Escribí para buscar dentro de la página.</p></div></div>
-  <script src="media-config.js"></script>
-  <script src="script.js"></script>
+  <script src="media-config.js?v=20260822-drive-unico"></script>
+  <script src="script.js?v=20260822-drive-unico"></script>
 </body>
 </html>

@@ -1,33 +1,60 @@
 const FOLDERS = {
-  hero: '1xeSge-gbTnnxZ95YHsLbP7Px0ba75bAa',
-  products: '1j_7G3-rRiKGNWoT4FMuacOK7TYMe1o6P',
-  promotions: '1aWpSm5kUZKq5jMQj1BX-84b88h6T5OAm',
-  gallery: '1k2G6hXziDsq-x-lvTIKuQX-fPehr85YM',
-  logos: '1AQctc6l8Ms5pLbih97RuLBNF2O-CCUD2'
+  hero: '1zJZHuwFVwl7MJFzFOV7qbDhpYsoRHLEK',
+  products: '1_-lG2xz2Wx3p65Np-zBOy-QcpjKHIdao',
+  promotions: '1-VMly5Nc-u0eWAFoOy1AKSlBk54eim0O',
+  gallery: '1KIJffYi8T6m5krsmLolyxhMIwEXtpfPt',
+  logos: '1uB9c5sl2PTctLTBw0MjrBkec3vFfjNSy'
 };
 
 function doGet() {
-  const payload = {updatedAt: new Date().toISOString()};
-  Object.keys(FOLDERS).forEach(key => payload[key] = listImages_(FOLDERS[key]));
-  return ContentService
-    .createTextOutput(JSON.stringify(payload))
-    .setMimeType(ContentService.MimeType.JSON);
+  try {
+    const payload = {
+      success: true,
+      updatedAt: new Date().toISOString()
+    };
+
+    Object.keys(FOLDERS).forEach(function (key) {
+      payload[key] = listImages(FOLDERS[key]);
+    });
+
+    return ContentService
+      .createTextOutput(JSON.stringify(payload))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: false,
+        error: error.message
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
-function listImages_(folderId) {
+function listImages(folderId) {
   const folder = DriveApp.getFolderById(folderId);
   const files = folder.getFiles();
-  const rows = [];
+  const images = [];
+
   while (files.hasNext()) {
-    const f = files.next();
-    if (!/^image\//i.test(f.getMimeType())) continue;
-    rows.push({
-      id: f.getId(),
-      name: f.getName(),
-      modified: f.getLastUpdated().getTime(),
-      url: 'https://drive.google.com/thumbnail?id=' + f.getId() + '&sz=w2200'
+    const file = files.next();
+
+    if (!file.getMimeType().startsWith('image/')) {
+      continue;
+    }
+
+    images.push({
+      id: file.getId(),
+      name: file.getName(),
+      modified: file.getLastUpdated().getTime(),
+      url: 'https://drive.google.com/thumbnail?id=' +
+           file.getId() +
+           '&sz=w2200'
     });
   }
-  rows.sort((a,b) => b.modified - a.modified);
-  return rows;
+
+  images.sort(function (a, b) {
+    return b.modified - a.modified;
+  });
+
+  return images;
 }
