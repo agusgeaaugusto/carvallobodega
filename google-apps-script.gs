@@ -1,9 +1,9 @@
 const FOLDERS = {
-  hero: '1zJZHuwFVwl7MJFzFOV7qbDhpYsoRHLEK',
-  products: '1_-lG2xz2Wx3p65Np-zBOy-QcpjKHIdao',
-  promotions: '1-VMly5Nc-u0eWAFoOy1AKSlBk54eim0O',
-  gallery: '1KIJffYi8T6m5krsmLolyxhMIwEXtpfPt',
-  logos: '1uB9c5sl2PTctLTBw0MjrBkec3vFfjNSy'
+  hero: '1xeSge-gbTnnxZ95YHsLbP7Px0ba75bAa',
+  products: '1j_7G3-rRiKGNWoT4FMuacOK7TYMe1o6P',
+  promotions: '1aWpSm5kUZKq5jMQj1BX-84b88h6T5OAm',
+  gallery: '1k2G6hXziDsq-x-lvTIKuQX-fPehr85YM',
+  logos: '1AQctc6l8Ms5pLbih97RuLBNF2O-CCUD2'
 };
 
 function doGet() {

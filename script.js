@@ -92,7 +92,7 @@ function refreshExistingDriveImages(){
   });
   const hero=document.getElementById('heroMedia');
   if(hero){
-    const base=hero.dataset.baseBg || 'https://drive.google.com/thumbnail?id=1Ye_SVczL7ZliPY5fwbm89BAaBVlXOQAq&sz=w2200';
+    const base=hero.dataset.baseBg || 'https://drive.google.com/thumbnail?id=1AlHNfybZt28-UJ2tW4IYjRYN8lfsdYec&sz=w2200';
     hero.dataset.baseBg=base;
     hero.style.backgroundImage=`url("${withFreshToken(base)}")`;
   }
