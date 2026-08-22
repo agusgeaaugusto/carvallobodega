@@ -156,8 +156,9 @@
   display:block!important;
   border-radius:16px!important;
   background:transparent!important;
-  border:1px solid rgba(255,255,255,.4)!important;
-  box-shadow:0 8px 18px rgba(0,0,0,.32)!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
   filter:drop-shadow(0 15px 18px rgba(0,0,0,.62));
   transition:transform .3s ease,filter .3s ease!important;
 }
@@ -223,6 +224,8 @@
   object-position:center!important;
   display:block!important;
   border-radius:18px!important;
+  border:0!important;
+  outline:0!important;
   background:transparent!important;
   box-shadow:none!important;
   filter:drop-shadow(0 20px 25px rgba(0,0,0,.72));
@@ -252,4 +255,34 @@
   .promo-media-grid{grid-auto-rows:330px}
   .product-grid{grid-template-columns:1fr!important}
   .promo-image-card,.product-media{height:320px!important;max-width:440px;width:100%!important;margin:0 auto!important}
+}
+
+/* ===== 10 AÑOS + CONTENEDORES TOTALMENTE TRANSPARENTES ===== */
+.hero-badges{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.anniversary-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 15px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(135deg,rgba(255,19,42,.2),rgba(255,212,0,.13));
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  box-shadow:0 8px 22px rgba(0,0,0,.24);
+  backdrop-filter:blur(8px);
+}
+.anniversary-pill i,.anniversary-pill strong{color:var(--yellow)}
+.anniversary-pill strong{font-weight:900;letter-spacing:.7px}
+.promo-image-card,
+.product-media,
+.gallery-card,
+.promo-image-card img,
+.product-media img,
+.gallery-card img{
+  border:0!important;
+  outline:0!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
 }
