@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050b11" />
+  <meta name="description" content="Carvallo Bodega. Bebidas bien frías, promociones y pedidos por WhatsApp en Salto del Guairá." />
+  <title>Carvallo Bodega | Siempre bien fría</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar" id="inicio">
+    <a class="brand" href="#inicio" aria-label="Carvallo Bodega - Inicio">
+      <img src="assets/logo-carvallo.png" alt="Logo Carvallo Bodega" />
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
+    <nav class="nav" id="mainNav">
+      <a class="active" href="#inicio"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+      <a href="#productos"><i class="fa-solid fa-cart-shopping"></i><span>Productos</span></a>
+      <a href="#promociones"><i class="fa-solid fa-tags"></i><span>Promociones</span></a>
+      <a href="#galeria"><i class="fa-regular fa-images"></i><span>Galería</span></a>
+      <a href="#ubicacion"><i class="fa-solid fa-location-dot"></i><span>Ubicación</span></a>
+      <a href="#contacto"><i class="fa-regular fa-envelope"></i><span>Contacto</span></a>
+    </nav>
+    <div class="socials">
+      <a class="instagram" href="https://www.instagram.com/carvallo_bodega?igsi=MWZ3bDRtMHg0dWtlaA%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a class="facebook" href="https://www.facebook.com/share/1DYejtUqNN/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a class="whatsapp" href="https://wa.me/595981742163" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <button id="searchBtn" class="search-btn" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-media" id="heroMedia" aria-hidden="true"></div>
+      <div class="hero-glow glow-a"></div><div class="hero-glow glow-b"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-content reveal">
+        <span class="eyebrow">BIENVENIDOS A</span>
+        <h1><span>CARVALLO</span><strong>BODEGA</strong></h1>
+        <h2>Tu bebida favorita, <em>siempre bien fría.</em></h2>
+        <p>Gran variedad en bebidas, combos, cervezas, licores, gaseosas y promociones especiales. <b>¡Todo en un solo lugar!</b></p>
+        <div class="hero-actions">
+          <a class="btn btn-whatsapp" href="https://wa.me/595981742163" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="btn btn-outline" href="#promociones"><i class="fa-solid fa-tag"></i> Ver promociones <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="hero-logo reveal" aria-hidden="true">
+        <img src="assets/logo-carvallo.png" alt="" />
+      </div>
+    </section>
+
+    <section class="benefits reveal" aria-label="Beneficios">
+      <article><div class="benefit-icon red"><i class="fa-solid fa-truck-fast"></i></div><div><h3>Atención Rápida</h3><p>Tu pedido en minutos</p></div></article>
+      <article><div class="benefit-icon yellow"><i class="fa-regular fa-snowflake"></i></div><div><h3>Siempre Bien Fría</h3><p>Bebidas a temperatura ideal</p></div></article>
+      <article><div class="benefit-icon red"><i class="fa-solid fa-percent"></i></div><div><h3>Grandes Promociones</h3><p>Ofertas para aprovechar</p></div></article>
+      <article><div class="benefit-icon yellow"><i class="fa-solid fa-location-dot"></i></div><div><h3>Ubicación Estratégica</h3><p>Barrio KM5 · Salto del Guairá</p></div></article>
+    </section>
+
+    <section class="section promotions" id="promociones">
+      <div class="section-heading reveal">
+        <span>PROMOCIONES</span><h2>Promo del día</h2><p>Ofertas destacadas para disfrutar bien frío.</p>
+      </div>
+      <div class="promo-layout reveal">
+        <div class="promo-media-grid" id="promoMediaGrid">
+          <article class="promo-image-card tilt-card" data-tilt="8"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1sS3UXHFYYxHGGOKSIu5RHT_62zVFs3_R&sz=w1800" alt="Promoción Carvallo Bodega" /></article>
+          <article class="promo-image-card tilt-card" data-tilt="8"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1IvopmuAUjX47c2XKzMZaXrVY__S9YWGn&sz=w1800" alt="Promoción Carvallo Bodega" /></article>
+          <article class="promo-image-card tilt-card" data-tilt="8"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1szr-95Mm6nZmjUpZrq469D1wXAgvccO3&sz=w1800" alt="Promoción Carvallo Bodega" /></article>
+          <article class="promo-image-card tilt-card" data-tilt="8"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1Wqeo97o-9pHaLf3pXxZSiVjv2O28m77A&sz=w1800" alt="Promoción Carvallo Bodega" /></article>
+        </div>
+        <aside class="order-card">
+          <div class="wa-orbit"><i class="fa-brands fa-whatsapp"></i></div>
+          <h3>Hacé tu pedido<br>directamente por <span>WhatsApp</span></h3>
+          <p>Rápido, simple y directo.</p>
+          <a href="https://wa.me/595981742163" target="_blank" rel="noopener">PEDIR AHORA <i class="fa-solid fa-arrow-right"></i></a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section products" id="productos">
+      <div class="section-heading reveal">
+        <span>PRODUCTOS</span><h2>Todo para tu momento</h2><p>Explorá nuestras opciones destacadas.</p>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <article class="product-media tilt-card reveal" data-tilt="7"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1CamuSM50fnScEK7PZvnhrhlg1VbxQJ2g&sz=w1600" alt="Producto Carvallo Bodega" /></article>
+        <article class="product-media tilt-card reveal" data-tilt="7"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1g6fr6SyPzj4GTqKGpsayS03xL7Cym0wM&sz=w1600" alt="Producto Carvallo Bodega" /></article>
+        <article class="product-media tilt-card reveal" data-tilt="7"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=12ZT-VQeqf6RDXolPnj7XjWXMoHZPdW_I&sz=w1600" alt="Producto Carvallo Bodega" /></article>
+        <article class="product-media tilt-card reveal" data-tilt="7"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1d5Ma_JIXMbG0Y7qFzrZfjMF2X0SYxXmA&sz=w1600" alt="Producto Carvallo Bodega" /></article>
+        <article class="category-panel reveal"><div class="cat-icon"><i class="fa-solid fa-beer-mug-empty"></i></div><h3>Cervezas</h3><p>Clásicas, premium y especiales.</p></article>
+        <article class="category-panel reveal"><div class="cat-icon"><i class="fa-solid fa-wine-bottle"></i></div><h3>Licores</h3><p>Opciones para brindar y compartir.</p></article>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="galeria">
+      <div class="gallery-head reveal"><div><span>NUESTRA BODEGA</span><h2>Viví la experiencia Carvallo</h2><p>Un vistazo a nuestro ambiente, variedad y estilo.</p></div></div>
+      <div class="gallery-stage reveal" id="galleryStage">
+        <button class="gallery-arrow left" id="galleryPrev" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="gallery-track" id="galleryTrack">
+          <article class="gallery-card active"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=19p3um-kTIGVdgxFPjj8MwiFol6f8--xG&sz=w1800" alt="Galería Carvallo Bodega" /></article>
+          <article class="gallery-card"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1toVevT4JHt00EErHpzLndKDFjmOcml8b&sz=w1800" alt="Galería Carvallo Bodega" /></article>
+          <article class="gallery-card"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1HWzxTedvV37L-7YskXcXDCJgnW6gR81C&sz=w1800" alt="Galería Carvallo Bodega" /></article>
+          <article class="gallery-card"><img data-drive-refresh src="https://drive.google.com/thumbnail?id=1kmGuNU7Kfm124zj482f4b_FbnQ0okbnM&sz=w1800" alt="Galería Carvallo Bodega" /></article>
+        </div>
+        <button class="gallery-arrow right" id="galleryNext" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="gallery-dots" id="galleryDots"></div>
+    </section>
+
+    <section class="location section" id="ubicacion">
+      <div class="location-copy reveal">
+        <span class="eyebrow">VISITANOS</span><h2>Estamos cerca de vos</h2>
+        <p><strong>Carvallo Bodega</strong><br>Barrio KM5, Salto del Guairá, Canindeyú.</p>
+        <div class="contact-lines">
+          <a href="tel:+595981742163"><i class="fa-solid fa-phone"></i> +595 981 742 163</a>
+          <a href="https://wa.me/595981742163" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Escribinos por WhatsApp</a>
+        </div>
+        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=-24.09163238584836,-54.36307950436578" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> Abrir en Google Maps</a>
+      </div>
+      <div class="map-card reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d321.93514729027!2d-54.36307950436578!3d-24.09163238584836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f4b7215530695b%3A0x9f5f80d941bd6608!2sCarvallo%20Bodega!5e0!3m2!1spt-BR!2spy!4v1787339780522!5m2!1spt-BR!2spy" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Ubicación Carvallo Bodega"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <div class="footer-brand"><img src="assets/logo-carvallo.png" alt="Logo Carvallo Bodega" /></div>
+    <div class="footer-col"><small>Seguinos</small><div class="footer-social"><a class="instagram" href="https://www.instagram.com/carvallo_bodega?igsi=MWZ3bDRtMHg0dWtlaA%3D%3D&utm_source=qr" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a><a class="facebook" href="https://www.facebook.com/share/1DYejtUqNN/?mibextid=wwXIfr" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a><a class="whatsapp" href="https://wa.me/595981742163" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a></div></div>
+    <div class="footer-col"><small>Ubicación</small><strong><i class="fa-solid fa-location-dot"></i> Barrio KM5, Salto del Guairá</strong><a href="https://www.google.com/maps/search/?api=1&query=-24.09163238584836,-54.36307950436578" target="_blank" rel="noopener">Ver en Google Maps →</a></div>
+    <div class="footer-col"><small>Contacto directo</small><strong><i class="fa-brands fa-whatsapp"></i> +595 981 742 163</strong><a href="https://wa.me/595981742163" target="_blank" rel="noopener">Escribinos ahora →</a></div>
+    <div class="footer-slogan">Tu bodega<br>de confianza ♡</div>
+    <div class="copyright">© <span id="year"></span> Carvallo Bodega. Todos los derechos reservados.</div>
+  </footer>
+
+  <a class="floating-whatsapp" href="https://wa.me/595981742163" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp"><i class="fa-brands fa-whatsapp"></i><span>¡Chateá con nosotros!</span></a>
+
+  <div class="search-modal" id="searchModal" aria-hidden="true"><div class="search-box"><button id="closeSearch" aria-label="Cerrar">×</button><h3>Buscar en Carvallo Bodega</h3><input id="searchInput" type="search" placeholder="Ej.: cerveza, promociones, ubicación..." /><p id="searchResult">Escribí para buscar dentro de la página.</p></div></div>
+  <script src="media-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

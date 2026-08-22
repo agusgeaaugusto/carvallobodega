@@ -1,0 +1,28 @@
+CARVALLO BODEGA - INTEGRACION GOOGLE DRIVE
+
+La pagina ya contiene como respaldo las imagenes actuales de tu nueva carpeta PaginaWeb.
+Tambien quedaron corregidos los IDs de las 5 carpetas en google-apps-script.gs.
+
+CARPETAS INTEGRADAS
+01 - Banner e Inicio: 1zJZHuwFVwl7MJFzFOV7qbDhpYsoRHLEK
+02 - Productos: 1_-lG2xz2Wx3p65Np-zBOy-QcpjKHIdao
+03 - Promociones: 1-VMly5Nc-u0eWAFoOy1AKSlBk54eim0O
+04 - Galeria: 1KIJffYi8T6m5krsmLolyxhMIwEXtpfPt
+05 - Logos e Identidad: 1uB9c5sl2PTctLTBw0MjrBkec3vFfjNSy
+
+PARA QUE LAS IMAGENES NUEVAS APAREZCAN AUTOMATICAMENTE
+1. Entra a script.google.com con la cuenta de Carvallo Bodega.
+2. Crea un proyecto nuevo.
+3. Copia TODO el contenido de google-apps-script.gs y pegalo en Code.gs.
+4. Pulsa Implementar > Nueva implementacion.
+5. Tipo: Aplicacion web.
+6. Ejecutar como: tu cuenta.
+7. Quien tiene acceso: Cualquier persona.
+8. Implementa y copia la URL que termina en /exec.
+9. Abre media-config.js y pega esa URL entre las comillas de:
+   window.CARVALLO_MEDIA_API = '';
+   Ejemplo: window.CARVALLO_MEDIA_API = 'https://script.google.com/macros/s/XXXXX/exec';
+10. Guarda y vuelve a publicar el proyecto en GitHub.
+
+Luego, al subir imagenes a Productos, Promociones o Galeria, la pagina las detectara automaticamente.
+El banner usara la imagen mas reciente de la carpeta 01 - Banner e Inicio.
