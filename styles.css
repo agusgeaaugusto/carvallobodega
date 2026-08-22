@@ -118,7 +118,9 @@
 .promo-media-grid{
   display:grid!important;
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:20px!important;
+  grid-auto-flow:row;
+  grid-auto-rows:300px;
+  gap:26px 20px!important;
   align-items:start!important;
 }
 .promo-image-card,
@@ -131,34 +133,38 @@
   aspect-ratio:auto!important;
   margin:0!important;
   padding:0!important;
-  border:0!important;
+  border:1px solid rgba(255,220,92,.48)!important;
   border-radius:18px!important;
-  overflow:visible!important;
+  overflow:hidden!important;
   background:transparent!important;
-  box-shadow:none!important;
+  box-shadow:0 13px 27px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.08)!important;
+  contain:layout paint;
   isolation:isolate;
   transform-style:preserve-3d;
   transition:transform .25s ease,filter .25s ease!important;
 }
 .promo-image-card img,
 .product-media img{
-  position:relative!important;
-  inset:auto!important;
-  width:100%!important;
-  height:100%!important;
+  position:absolute!important;
+  inset:8px!important;
+  width:calc(100% - 16px)!important;
+  height:calc(100% - 16px)!important;
+  max-width:calc(100% - 16px)!important;
+  max-height:calc(100% - 16px)!important;
   object-fit:contain!important;
   object-position:center!important;
   display:block!important;
   border-radius:16px!important;
   background:transparent!important;
-  box-shadow:none!important;
+  border:1px solid rgba(255,255,255,.4)!important;
+  box-shadow:0 8px 18px rgba(0,0,0,.32)!important;
   filter:drop-shadow(0 15px 18px rgba(0,0,0,.62));
   transition:transform .3s ease,filter .3s ease!important;
 }
 .promo-image-card:hover,
 .product-media:hover{
-  border:0!important;
-  box-shadow:none!important;
+  border-color:rgba(255,212,0,.88)!important;
+  box-shadow:0 18px 34px rgba(0,0,0,.6),0 0 22px rgba(255,212,0,.13)!important;
   filter:none!important;
 }
 .promo-image-card:hover img,
@@ -170,6 +176,7 @@
   top:8px!important;
   left:8px!important;
 }
+.promo-media-grid .promo-image-card{height:100%!important}
 .promo-image-card .media-shine,
 .product-media::after,
 .product-info{
@@ -229,6 +236,7 @@
 }
 @media(max-width:820px){
   .promo-layout{grid-template-columns:1fr!important}
+  .promo-media-grid{grid-auto-rows:270px}
   .promo-layout .order-card{
     position:relative;
     top:auto;
@@ -240,6 +248,7 @@
 }
 @media(max-width:560px){
   .promo-media-grid{grid-template-columns:1fr!important}
+  .promo-media-grid{grid-auto-rows:330px}
   .product-grid{grid-template-columns:1fr!important}
   .promo-image-card,.product-media{height:320px!important;max-width:440px;width:100%!important;margin:0 auto!important}
 }
