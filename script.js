@@ -52,6 +52,7 @@ function versionedUrl(url,version){
   return`${clean}${clean.includes('?')?'&':'?'}v=${encodeURIComponent(String(version||'actual'))}`;
 }
 function imageUrl(item,size=1800){
+  if(item?.localUrl)return item.localUrl;
   let url=item?.url||'';
   if(url)url=/[?&]sz=w\d+/.test(url)?url.replace(/sz=w\d+/,`sz=w${size}`):`${url}${url.includes('?')?'&':'?'}sz=w${size}`;
   else if(item?.id)url=`https://drive.google.com/thumbnail?id=${item.id}&sz=w${size}`;
@@ -64,7 +65,8 @@ function createMediaCard(item,type,index){
   const image=document.createElement('img');
   image.src=imageUrl(item,type==='promo'?1600:1800);
   image.alt=type==='promo'?`Promoción ${index+1} de Carvallo Bodega`:`Producto destacado ${index+1} de Carvallo Bodega`;
-  image.loading=index<2?'eager':'lazy';image.decoding='async';
+  image.loading=type==='promo'&&index<2?'eager':'lazy';image.decoding='async';
+  if(type==='promo'&&index===0)image.fetchPriority='high';
   image.addEventListener('load',()=>article.classList.remove('media-loading'),{once:true});
   image.addEventListener('error',()=>{article.classList.remove('media-loading');article.classList.add('media-error');image.alt='Imagen temporalmente no disponible';},{once:true});
   article.appendChild(image);return article;
@@ -76,7 +78,7 @@ function replaceChildren(container,children,emptyMessage){
 }
 
 let galleryIndex=0,galleryTimer;
-function galleryCards(){return$$('.gallery-card');}
+function galleryCards(){return $$('.gallery-card');}
 function updateGallery(){
   const cards=galleryCards(),dots=$$('#galleryDots button');if(!cards.length)return;
   galleryIndex=(galleryIndex+cards.length)%cards.length;
@@ -120,8 +122,18 @@ async function syncMedia(){
   }catch(error){console.warn('No se pudieron actualizar las imágenes:',error.message);$$('.media-placeholder').forEach(item=>item.textContent='Las imágenes se actualizarán en unos instantes.');}
   finally{requestInFlight=false;}
 }
-syncMedia();
-const refreshMs=Math.max(15000,Number(window.CARVALLO_MEDIA_REFRESH_MS)||30000);
+const fallbackData=window.CARVALLO_MEDIA_FALLBACK;
+if(fallbackData){
+  lastSignature=payloadSignature(fallbackData);
+  renderMedia(fallbackData);
+}
+
+const refreshMs=Math.max(60000,Number(window.CARVALLO_MEDIA_REFRESH_MS)||300000);
 if(window.__CARVALLO_MEDIA_SYNC_TIMER__)clearInterval(window.__CARVALLO_MEDIA_SYNC_TIMER__);
 window.__CARVALLO_MEDIA_SYNC_TIMER__=setInterval(syncMedia,refreshMs);
+window.addEventListener('load',()=>{
+  const checkForUpdates=()=>syncMedia();
+  if('requestIdleCallback'in window)requestIdleCallback(checkForUpdates,{timeout:5000});
+  else setTimeout(checkForUpdates,1800);
+},{once:true});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncMedia();});
